@@ -9,8 +9,6 @@ spring:
           cloneOnStart: true
           username: ag51082@fer.hr
           password: ferrassuslab2020
-  profiles:
-    active: git
 logging:
   level:
     org.springframework.cloud.config.server: DEBUG
