@@ -1,0 +1,16 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/petrakos995/mikrouslugeRASSUS.git
+          cloneOnStart: true
+          username: ag51082@fer.hr
+          password: $mackDown1
+  profiles:
+    active: git
+logging:
+  level:
+    org.springframework.cloud.config.server: DEBUG
