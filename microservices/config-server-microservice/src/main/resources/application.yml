@@ -8,7 +8,7 @@ spring:
           uri: https://github.com/petrakos995/mikrouslugeRASSUS.git
           cloneOnStart: true
           username: ag51082@fer.hr
-          password: $mackDown1
+          password: ferrassuslab2020
   profiles:
     active: git
 logging:
