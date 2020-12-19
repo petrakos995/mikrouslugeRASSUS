@@ -5,10 +5,12 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/petrakos995/mikrouslugeRASSUS.git
+          uri: https://github.com/petrakos995/mikrouslugeRASSUS
           cloneOnStart: true
           username: ag51082@fer.hr
           password: ferrassuslab2020
+          searchPaths: config
 logging:
   level:
     org.springframework.cloud.config.server: DEBUG
+    
