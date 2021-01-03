@@ -1,17 +1,18 @@
 package main.java.hr.fer.tel.rassus.humiditymicroservice.dto;
 
 public class SimpleResponse {
-    private String message;
+    //
+    private Integer responce;
 
-    public SimpleResponse(String message) {
-        this.message = message;
+    public SimpleResponse(Integer message) {
+        this.responce = message;
     }
 
-    public String getMessage() {
-        return message;
+    public Integer getMessage() {
+        return responce;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(Integer message) {
+        this.responce = message;
     }
 }

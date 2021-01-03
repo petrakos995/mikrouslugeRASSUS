@@ -22,9 +22,10 @@ public class HumidityDataController {
     public ResponseEntity<SimpleResponse> getDataFromThisService(){
         LocalTime localTime = LocalTime.now();
         //TODO ovdje je potrebno ovo promjeniti kako se ne bi samo prva dva mjerenja pokazivala
-        Integer id = (4* localTime.getHour() + localTime.getMinute()/ 15)%2;
+        //edit : popravljeno
+        Integer id = (4* localTime.getHour() + localTime.getMinute()/ 15);
         HumidityDataDTO message =  humidityDataService.getCurrentReading(id);
-        return ResponseEntity.ok(new SimpleResponse(message.toString()));
+        return ResponseEntity.ok(new SimpleResponse(message.readyToSend()));
     }
 
 }
