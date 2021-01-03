@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,9 +32,8 @@ public class HumidityMicroserviceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (humidityDataRepository.count() == 0){
-            Path pathToFile = Paths.get("src/main/resources/mjerenja.csv");
-            try (BufferedReader br = Files.newBufferedReader(pathToFile.toAbsolutePath(),
-                    StandardCharsets.US_ASCII)) {
+        	InputStream is = HumidityMicroserviceApplication.class.getResourceAsStream("/mjerenja.csv");
+        	try (BufferedReader br = new BufferedReader(new InputStreamReader(is))){
                 String line = br.readLine();
                 line = br.readLine();
                 while ( line != null){

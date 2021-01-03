@@ -2,6 +2,7 @@ package hr.fer.tel.rassus.temperaturemicroservice;
 
 import hr.fer.tel.rassus.temperaturemicroservice.model.TemperatureData;
 import hr.fer.tel.rassus.temperaturemicroservice.repositories.TemperatureDataRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,9 +33,8 @@ public class TemperaturemicroserviceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (temperatureDataRepository.count() == 0){
-            Path pathToFile = Paths.get("src/main/resources/mjerenja.csv");
-            try (BufferedReader br = Files.newBufferedReader(pathToFile.toAbsolutePath(),
-                    StandardCharsets.US_ASCII)) {
+        	InputStream is = TemperaturemicroserviceApplication.class.getResourceAsStream("/mjerenja.csv");
+        	try (BufferedReader br = new BufferedReader(new InputStreamReader(is))){
                 String line = br.readLine();
                 line = br.readLine();
                 while ( line != null){
