@@ -18,6 +18,9 @@ services:
     depends_on:
       - "eureka-server"
       - "config-server-microservice"
+    links:
+      - "eureka-server"
+      - "config-server-microservice"
     command: ["./wait-for-it.sh", "eureka-server:8761"]
   humidity-microservice:
     image: humidity-microservice-jib:0.0.1-SNAPSHOT
@@ -29,6 +32,9 @@ services:
     depends_on:
       - "eureka-server"
       - "config-server-microservice"
+    links:
+      - "eureka-server"
+      - "config-server-microservice"
     command: ["./wait-for-it.sh", "eureka-server:8761"]
   temperature-microservice:
     image: temperature-microservice-jib:0.0.1-SNAPSHOT
@@ -38,6 +44,9 @@ services:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://eureka-server:8761/eureka
     depends_on:
+      - "eureka-server"
+      - "config-server-microservice"
+    links:
       - "eureka-server"
       - "config-server-microservice"
     command: ["./wait-for-it.sh", "eureka-server:8761"]
