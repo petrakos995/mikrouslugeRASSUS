@@ -50,6 +50,7 @@ jib {
    paths {
       path {
         from = file('src/main/resources')
+          into = 'src/main/resources'
       }
   	}
   }
