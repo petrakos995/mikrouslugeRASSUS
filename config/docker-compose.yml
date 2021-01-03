@@ -1,0 +1,20 @@
+version: "2"
+services:
+  config-server-microservice:
+    image: config-server-microservice-jib:0.0.1-SNAPSHOT
+    ports:
+      - "8888:8888"
+  eureka-server:
+    image: eureka-server-jib:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+  aggregator-microservice:
+    image: aggregator-microservice-jib:0.0.1-SNAPSHOT
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "eureka-server"
+      - "config-server-microservice"
+    command: ["./wait-for-it.sh", "eureka-server:8761"]
+
+

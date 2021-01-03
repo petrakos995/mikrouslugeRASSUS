@@ -26,10 +26,10 @@ public class ReadingResourceController {
 	@Autowired
 	private EurekaClient eurekaClient;
 	
-	@Value("${tempservice.name}")
+	@Value("${tempservice.name: }")
 	private String temperatureServiceName;
 
-	@Value("${humidityservice.name}")
+	@Value("${humidityservice.name: }")
 	private String humidityServiceName;
 	
 	@Value("${temperature.unit:K}")
@@ -47,18 +47,18 @@ public class ReadingResourceController {
 		log.info(temperatureUnit);
 		log.info(temperatureServiceName);
 		log.info(humidityServiceName);
-		if(!success) return ResponseEntity.status(500).build();
+		//if(!success) return ResponseEntity.status(500).build();
 		success = false;
 		if(humidityRest == null)  success = setHumidityApp();
 		if(!success) return ResponseEntity.status(500).build();
 		
-		Integer temperature = tempRest.getCurrentReading();
+		//Integer temperature = tempRest.getCurrentReading();
 		Integer humidity = humidityRest.getCurrentReading();
-		if(temperature == null || humidity == null) return ResponseEntity.status(500).build();
+		//if(temperature == null || humidity == null) return ResponseEntity.status(500).build();
 		
-		if(("K").equals(temperatureUnit)) temperature += 273;
+		//if(("K").equals(temperatureUnit)) temperature += 273;
 		
-		Reading reading = new Reading(temperature,humidity);
+		Reading reading = new Reading(21,humidity, temperatureUnit);
 	    return ResponseEntity.ok(reading.toString());
 	}
 
