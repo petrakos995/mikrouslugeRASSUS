@@ -32,10 +32,7 @@ public class ReadingResourceController {
 	@Value("${humidityservice.name}")
 	private String humidityServiceName;
 	
-	@Value("{app.shared.attribute}")
-	private String shared;
-	
-	@Value("{temperature.unit}")
+	@Value("${temperature.unit:K}")
 	private String temperatureUnit;
 	
 	
@@ -47,7 +44,9 @@ public class ReadingResourceController {
 	public ResponseEntity<String> getMeasurement() {
 		boolean success = false;
 		if(tempRest == null)  success = setTempApp();
-		log.info(shared);
+		log.info(temperatureUnit);
+		log.info(temperatureServiceName);
+		log.info(humidityServiceName);
 		if(!success) return ResponseEntity.status(500).build();
 		success = false;
 		if(humidityRest == null)  success = setHumidityApp();
