@@ -1,7 +1,6 @@
-package main.java.hr.fer.tel.rassus.humiditymicroservice.dto;
+package hr.fer.tel.rassus.temperaturemicroservice.dto;
 
 public class SimpleResponse {
-    //
     private Integer response;
 
     public SimpleResponse(Integer message) {
