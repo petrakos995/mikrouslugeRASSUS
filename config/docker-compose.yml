@@ -12,9 +12,45 @@ services:
     image: aggregator-microservice-jib:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-server:8761/eureka
     depends_on:
       - "eureka-server"
       - "config-server-microservice"
+    links:
+      - "eureka-server"
+      - "config-server-microservice"
     command: ["./wait-for-it.sh", "eureka-server:8761"]
+  humidity-microservice:
+    image: humidity-microservice-jib:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8082"
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-server:8761/eureka
+    depends_on:
+      - "eureka-server"
+      - "config-server-microservice"
+    links:
+      - "eureka-server"
+      - "config-server-microservice"
+    command: ["./wait-for-it.sh", "eureka-server:8761"]
+  temperature-microservice:
+    image: temperature-microservice-jib:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8081"
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-server:8761/eureka
+    depends_on:
+      - "eureka-server"
+      - "config-server-microservice"
+    links:
+      - "eureka-server"
+      - "config-server-microservice"
+    command: ["./wait-for-it.sh", "eureka-server:8761"]
+   
+
 
 

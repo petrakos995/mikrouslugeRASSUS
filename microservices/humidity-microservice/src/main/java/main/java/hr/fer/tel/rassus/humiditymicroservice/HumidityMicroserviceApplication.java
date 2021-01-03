@@ -23,6 +23,7 @@ public class HumidityMicroserviceApplication implements CommandLineRunner {
     private HumidityDataRepository humidityDataRepository;
 
     public static void main(String[] args) {
+    	System.setProperty("spring.cloud.bootstrap.enabled","true");
         SpringApplication.run(HumidityMicroserviceApplication.class, args);
     }
 

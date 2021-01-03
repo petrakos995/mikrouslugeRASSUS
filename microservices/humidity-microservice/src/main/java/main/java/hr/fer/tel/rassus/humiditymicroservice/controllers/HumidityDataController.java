@@ -19,13 +19,13 @@ public class HumidityDataController {
     private HumidityDataService humidityDataService;
 
     @GetMapping
-    public ResponseEntity<SimpleResponse> getDataFromThisService(){
+    public ResponseEntity<Integer> getDataFromThisService(){
         LocalTime localTime = LocalTime.now();
         //TODO ovdje je potrebno ovo promjeniti kako se ne bi samo prva dva mjerenja pokazivala
         //edit : popravljeno
         Integer id = (4* localTime.getHour() + localTime.getMinute()/ 15);
         HumidityDataDTO message =  humidityDataService.getCurrentReading(id);
-        return ResponseEntity.ok(new SimpleResponse(message.readyToSend()));
+        return ResponseEntity.ok(message.readyToSend());
     }
 
 }

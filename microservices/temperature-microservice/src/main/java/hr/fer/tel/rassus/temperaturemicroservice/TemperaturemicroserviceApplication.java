@@ -23,6 +23,7 @@ public class TemperaturemicroserviceApplication implements CommandLineRunner {
     private TemperatureDataRepository temperatureDataRepository;
 
     public static void main(String[] args) {
+    	System.setProperty("spring.cloud.bootstrap.enabled","true");
         SpringApplication.run(TemperaturemicroserviceApplication.class, args);
     }
 

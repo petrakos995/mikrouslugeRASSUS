@@ -18,11 +18,11 @@ public class TemperatureDataController {
     private TemperatureDataService temperatureDataService;
 
     @GetMapping
-    public ResponseEntity<SimpleResponse> getDataFromThisService(){
+    public ResponseEntity<Integer> getDataFromThisService(){
         LocalTime localTime = LocalTime.now();
 
         Integer id = (4* localTime.getHour() + localTime.getMinute()/ 15);
         TemperatureDataDTO message =  temperatureDataService.getCurrentReading(id);
-        return ResponseEntity.ok(new SimpleResponse(message.readyToSend()));
+        return ResponseEntity.ok(message.readyToSend());
     }
 }

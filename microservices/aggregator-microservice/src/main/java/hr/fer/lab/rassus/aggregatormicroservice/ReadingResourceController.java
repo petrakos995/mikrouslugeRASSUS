@@ -42,21 +42,29 @@ public class ReadingResourceController {
 
 	@GetMapping("/readings")
 	public ResponseEntity<String> getMeasurement() {
-		boolean success = false;
-		if(tempRest == null)  success = setTempApp();
+		boolean success = true;
+		if(tempRest == null) {
+			success = false;
+			success = setTempApp();
+		}
 		log.info(temperatureUnit);
 		log.info(temperatureServiceName);
 		log.info(humidityServiceName);
-		//if(!success) return ResponseEntity.status(500).build();
-		success = false;
-		if(humidityRest == null)  success = setHumidityApp();
+		if(!success) return ResponseEntity.status(500).build();
+		success = true;
+		if(humidityRest == null) {
+			success = false;
+			success = setHumidityApp();
+		}
 		if(!success) return ResponseEntity.status(500).build();
 		
-		//Integer temperature = tempRest.getCurrentReading();
+		Integer temperature = tempRest.getCurrentReading();
 		Integer humidity = humidityRest.getCurrentReading();
+		log.info(Integer.toString(humidity));
+		log.info(Integer.toString(temperature));
 		//if(temperature == null || humidity == null) return ResponseEntity.status(500).build();
 		
-		//if(("K").equals(temperatureUnit)) temperature += 273;
+		if(("K").equals(temperatureUnit)) temperature += 273;
 		
 		Reading reading = new Reading(21,humidity, temperatureUnit);
 	    return ResponseEntity.ok(reading.toString());
