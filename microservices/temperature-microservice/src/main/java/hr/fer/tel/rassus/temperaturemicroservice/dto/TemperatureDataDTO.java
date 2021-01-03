@@ -1,10 +1,10 @@
-package main.java.hr.fer.tel.rassus.humiditymicroservice.dto;
+package hr.fer.tel.rassus.temperaturemicroservice.dto;
 
-public class HumidityDataDTO {
+public class TemperatureDataDTO {
     private String currentReading;
 
 
-    public HumidityDataDTO(String currentReading) {
+    public TemperatureDataDTO(String currentReading) {
         this.currentReading = currentReading;
     }
 

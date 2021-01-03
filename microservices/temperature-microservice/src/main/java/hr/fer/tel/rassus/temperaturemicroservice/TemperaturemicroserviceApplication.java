@@ -1,7 +1,7 @@
-package main.java.hr.fer.tel.rassus.humiditymicroservice;
+package hr.fer.tel.rassus.temperaturemicroservice;
 
-import main.java.hr.fer.tel.rassus.humiditymicroservice.model.HumidityData;
-import main.java.hr.fer.tel.rassus.humiditymicroservice.repositories.HumidityDataRepository;
+import hr.fer.tel.rassus.temperaturemicroservice.model.TemperatureData;
+import hr.fer.tel.rassus.temperaturemicroservice.repositories.TemperatureDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,18 +17,18 @@ import java.nio.file.Paths;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class HumidityMicroserviceApplication implements CommandLineRunner {
+public class TemperaturemicroserviceApplication implements CommandLineRunner {
 
     @Autowired
-    private HumidityDataRepository humidityDataRepository;
+    private TemperatureDataRepository temperatureDataRepository;
 
     public static void main(String[] args) {
-        SpringApplication.run(HumidityMicroserviceApplication.class, args);
+        SpringApplication.run(TemperaturemicroserviceApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        if (humidityDataRepository.count() == 0){
+        if (temperatureDataRepository.count() == 0){
             Path pathToFile = Paths.get("src/main/resources/mjerenja.csv");
             try (BufferedReader br = Files.newBufferedReader(pathToFile.toAbsolutePath(),
                     StandardCharsets.US_ASCII)) {
@@ -37,23 +37,15 @@ public class HumidityMicroserviceApplication implements CommandLineRunner {
                 while ( line != null){
 
                     String[] attributes = line.split(",");
-                    HumidityData h = new HumidityData();
+                    TemperatureData t = new TemperatureData();
                     if( attributes[2] == null)
-                        h.setPercentageOfHumidy("0");
+                        t.setTemperatureValue("0");
                     else
-                        h.setPercentageOfHumidy(attributes[2]);
-                    humidityDataRepository.save(h);
+                        t.setTemperatureValue(attributes[0]);
+                    temperatureDataRepository.save(t);
                     line = br.readLine();
                 }
             }
-            /*HumidityData h1 = new HumidityData();
-            h1.setPercentageOfHumidy("1254");
-            //TODO ovdje je potrebno promjeniti ucitavanje iz csv datoteke i da se to spremi
-            humidityDataRepository.save(h1);
-            HumidityData h2 = new HumidityData();
-            h2.setPercentageOfHumidy("5689");
-            humidityDataRepository.save(h2);*/
-
         }
     }
 }
