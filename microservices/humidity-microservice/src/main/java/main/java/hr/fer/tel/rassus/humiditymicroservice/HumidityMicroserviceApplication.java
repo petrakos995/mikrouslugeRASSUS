@@ -33,8 +33,9 @@ public class HumidityMicroserviceApplication implements CommandLineRunner {
             try (BufferedReader br = Files.newBufferedReader(pathToFile.toAbsolutePath(),
                     StandardCharsets.US_ASCII)) {
                 String line = br.readLine();
+                line = br.readLine();
                 while ( line != null){
-                    line = br.readLine();
+
                     String[] attributes = line.split(",");
                     HumidityData h = new HumidityData();
                     if( attributes[2] == null)
@@ -42,6 +43,7 @@ public class HumidityMicroserviceApplication implements CommandLineRunner {
                     else
                         h.setPercentageOfHumidy(attributes[2]);
                     humidityDataRepository.save(h);
+                    line = br.readLine();
                 }
             }
             /*HumidityData h1 = new HumidityData();
