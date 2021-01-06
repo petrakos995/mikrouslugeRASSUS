@@ -26,13 +26,13 @@ public class ReadingResourceController {
 	@Autowired
 	private EurekaClient eurekaClient;
 	
-	@Value("${tempservice.name: }")
+	@Value("${tempservice.name:temperature-ms}")
 	private String temperatureServiceName;
 
-	@Value("${humidityservice.name: }")
+	@Value("${humidityservice.name:humidity-ms}")
 	private String humidityServiceName;
 	
-	@Value("${temperature.unit:K}")
+	@Value("${temperature.unit:C}")
 	private String temperatureUnit;
 	
 	
@@ -50,23 +50,24 @@ public class ReadingResourceController {
 		log.info(temperatureUnit);
 		log.info(temperatureServiceName);
 		log.info(humidityServiceName);
-		if(!success) return ResponseEntity.status(500).build();
+		if(!success) return ResponseEntity.status(503).body("Temperature microservice unavailable");
 		success = true;
 		if(humidityRest == null) {
 			success = false;
 			success = setHumidityApp();
 		}
-		if(!success) return ResponseEntity.status(500).build();
+		if(!success) return ResponseEntity.status(503).body("Humidity microservice unavailable");
 		
 		Integer temperature = tempRest.getCurrentReading();
 		Integer humidity = humidityRest.getCurrentReading();
 		log.info(Integer.toString(humidity));
 		log.info(Integer.toString(temperature));
-		//if(temperature == null || humidity == null) return ResponseEntity.status(500).build();
+		if(temperature == null) return ResponseEntity.status(503).body("Temperature microservice unavailable");
+		if(humidity == null) return ResponseEntity.status(503).body("Humidity microservice unavailable");
 		
 		if(("K").equals(temperatureUnit)) temperature += 273;
 		
-		Reading reading = new Reading(21,humidity, temperatureUnit);
+		Reading reading = new Reading(temperature,humidity, temperatureUnit);
 	    return ResponseEntity.ok(reading.toString());
 	}
 

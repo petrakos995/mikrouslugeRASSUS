@@ -1,7 +1,6 @@
 package main.java.hr.fer.tel.rassus.humiditymicroservice.controllers;
 
 import main.java.hr.fer.tel.rassus.humiditymicroservice.dto.HumidityDataDTO;
-import main.java.hr.fer.tel.rassus.humiditymicroservice.dto.SimpleResponse;
 import main.java.hr.fer.tel.rassus.humiditymicroservice.services.HumidityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

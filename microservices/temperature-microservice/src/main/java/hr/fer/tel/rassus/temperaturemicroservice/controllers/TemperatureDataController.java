@@ -1,6 +1,5 @@
 package hr.fer.tel.rassus.temperaturemicroservice.controllers;
 
-import hr.fer.tel.rassus.temperaturemicroservice.dto.SimpleResponse;
 import hr.fer.tel.rassus.temperaturemicroservice.dto.TemperatureDataDTO;
 import hr.fer.tel.rassus.temperaturemicroservice.services.TemperatureDataService;
 import org.springframework.beans.factory.annotation.Autowired;
